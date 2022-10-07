@@ -1,7 +1,7 @@
 services:
-  postgres_students2:
+  postgres_students:
     image: postgres
-    container_name: postgres_students2
+    container_name: postgres_students
     restart: always
     ports:
       - 1234:5432
@@ -16,7 +16,7 @@ services:
     ports:
       - 5000:5000
     depends_on:
-      - postgres_students2
+      - postgres_students
     env_file:
       - .env
 volumes:
