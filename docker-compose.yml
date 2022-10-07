@@ -1,19 +1,23 @@
 services:
-  db:
+  postgres_students2:
     image: postgres
-    container_name: db
-    restart: always #container reinicia se morrer
+    container_name: postgres_students2
+    restart: always
     ports:
-      - 2345:5432
+      - 1234:5432
     env_file:
-      - .env #configurar POSTGRES_USER, POSTGRES_PASSWORD e POSTGRES_DB
+      - .env
+    volumes:
+      - pg_students:/var/lib/postgresql/data
 
   node_app:
-    container_name: node_app
-    build: . #Dockerfile do node se encontra na pasta atual
+    container_name: node_students
+    build: .
     ports:
-      - 5001:5000
+      - 5000:5000
     depends_on:
-      - db # só sobe quando o postgres tiver no ar
+      - postgres_students2
     env_file:
-      - .env #configurar DATABASE_URL
+      - .env
+volumes:
+  pg_students:

@@ -1,5 +1,5 @@
 # busca a imagem do node lá no docker hub
-FROM node:18
+FROM node
 
 # escolher uma pasta para colocar a minha aplicação -> CD
 WORKDIR /usr/src
@@ -12,6 +12,8 @@ EXPOSE 5000
 
 # rodar o comando que baixa as deps
 RUN npm i
+RUN npm run build
+RUN npx prisma generate
 
 # só quando eu estiver rodando isso como container
-CMD ["npm", "run", "dev:migrate"]
+CMD ["npm", "start"]
